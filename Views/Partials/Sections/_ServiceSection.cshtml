@@ -1,0 +1,22 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<HomePage>
+
+<section class="py-[4rem] bg-[#f7f7f7] ">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex flex-col gap-2 items-center">
+            <h2 class="text-[.875rem] text[#d9c3a9] font-bold uppercase">@Model.ServiceLabel</h2>
+            <div class="rte">@Html.Raw(Model.ServiceTitle)</div>
+        </div>
+
+        <div class="mt-5 grid grid-cols-3 gap-4">
+            <div class="bg-[#ffffff] border-2 border-[#f7f7f7] w-full min-h-[350px] overflow-hidden">
+            <a href="#" class="block no-underline">
+                <h4 class="p-[1.5rem] font-semibold text-[#4f5955]">Risk Managment</h4>
+                <img src="images/RiskManagment.svg" class="block w-full h-[220px] object-cover">
+                <p class="text-sm p-[1.5rem]">Dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non </p>
+            </a>
+            </div>
+        </div>
+
+    </div>
+</section>
