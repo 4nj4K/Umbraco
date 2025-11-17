@@ -1,0 +1,38 @@
+@inherits UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
+@{
+    var projects = Model.RecentProjects; // Block List
+}
+
+<section class="recent-projects">
+    <div class="container">
+
+        <p class="section-tag">OUR PROJECTS</p>
+        <h2 class="section-title">Recent projects</h2>
+
+        <div class="projects-grid">
+            @foreach (var block in projects)
+            {
+                var project = block.Content as ContentModels.ProjectItem;
+
+                var img = project?.ProjectImage?.Url();
+                var title = project?.ProjectTitle;
+                var category = project?.ProjectCategory;
+                var link = project?.ProjectLink?.Url;
+                var target = project?.ProjectLink?.Target;
+
+                <a href="@link" target="@target" class="project-card">
+                    <div class="project-image">
+                        <img src="@img" alt="@title" />
+                    </div>
+                    <div class="project-info">
+                        <p class="project-category">@category</p>
+                        <h4 class="project-title">@title</h4>
+                    </div>
+                </a>
+            }
+        </div>
+
+    </div>
+</section>

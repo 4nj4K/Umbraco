@@ -1,40 +1,75 @@
-﻿
-@using Umbraco.Cms.Web.Common.PublishedModels;
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<HomePage>
-@{
-	Layout = "mainLayout.cshtml";
 
+@{
+    Layout = "mainLayout.cshtml";
+
+    Link? heroLink = Model.HeroLink;
+
+    var heroImage = Model.HeroBgImage;
+
+    var expQuote = Model.Value<string>("expQuote");
 }
 
-<section class="relative h-[600px] flex items-center">
-	<div class="absolute inset-0">
-		@if (Model.HeroBgImage != null)
-		{
-			<img class="w-full h-full object-cover" src="@Model.HeroBgImage.Url()" />
 
-		}
-	</div>
+<section class="hero">
+    <div class="hero-inner">
 
-	<div class="container mx-auto px-4 relative z-10">
-		<div class="w-5/12 flex flex-col gap-8">
-			<h1 class="text-[4.5rem] text-[#4F5955] font-bold leading-none">@Model.HeroTitle</h1> 
-			<div class="rte">
-				@Html.Raw(Model.HeroText)
-			</div>
-			@if (Model.HeroLink != null)
-			{
-				<a class="bg-[#4F5955] text-white py-3 px-10 no-underline rounded cursor-pointer self-start font-bold" href="@Model.HeroLink.Url">@Model.HeroLink.Name</a>
-			}
+        <div class="hero-left">
+            <h1>@Model.HeroTitle</h1>
 
-		</div>
-	</div>
+            <div class="hero-text rte">
+                @Html.Raw(Model.HeroText)
+            </div>
+
+            @if (heroLink != null)
+            {
+                <a class="btn-primary" href="@heroLink.Url">
+                    @heroLink.Name
+                </a>
+            }
+        </div>
+
+        <div class="hero-right">
+            @if (heroImage != null)
+            {
+                <img src="@heroImage.Url()" alt="@heroImage.Name" />
+            }
+        </div>
+
+    </div>
 </section>
 
-<partial name="Partials/Sections/_ServiceSection.cshtml">
+<section class="experience">
+    <div class="experience-inner">
+        <p class="exp-label">@Model.ExpLabel</p>
+
+        <h2 class="exp-title">@Model.ExpTitle</h2>
+
+        @if (!string.IsNullOrWhiteSpace(expQuote))
+		{
+			<div class="exp-quote">
+				@Html.Raw(expQuote)
+			</div>
+		}
 
 
 
+        <div class="exp-text rte">
+            @Html.Raw(Model.ExpText)
+        </div>
 
+        <div class="exp-signature">
+            <div class="exp-name">@Model.ExpName</div>
+            <div class="exp-role">@Model.ExpRole</div>
+        </div>
+    </div>
+</section>
 
+<partial name="Partials/Sections/_ServiceSection.cshtml" />
 
+<partial name="Partials/Sections/_TrustedSuccessSection.cshtml" />
+
+@await Html.PartialAsync("Partials/Sections/_RecentProjectsSection", Model)
 

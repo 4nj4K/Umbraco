@@ -1,0 +1,117 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@using System.Linq;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<HomePage>
+
+@{
+   
+
+    
+    var trustedTitle      = Model.Value<string>("trustedTitle");
+    var trustedHighlight  = Model.Value<string>("trustedHighlight");
+    var trustedText       = Model.Value<string>("trustedText");
+    var trustedButtonText = Model.Value<string>("trustedButtonText");
+
+    var trustedLink       = Model.Value<IEnumerable<Link>>("trustedButtonLink")?.FirstOrDefault();
+    var trustedImg        = Model.Value<MediaWithCrops>("trustedImage");
+
+    
+    var successLabel         = Model.Value<string>("successLabel");
+    var successTitle         = Model.Value<string>("successTitle");
+    var successStat1Number   = Model.Value<string>("successStat1Number");
+    var successStat1Text     = Model.Value<string>("successStat1Text");
+    var successStat2Number   = Model.Value<string>("successStat2Number");
+    var successStat2Text     = Model.Value<string>("successStat2Text");
+    var successStat3Number   = Model.Value<string>("successStat3Number");
+    var successStat3Text     = Model.Value<string>("successStat3Text");
+    var successImg           = Model.Value<MediaWithCrops>("successImage");
+}
+
+
+<section class="trusted">
+    <div class="trusted-inner">
+
+        
+        @if (!string.IsNullOrWhiteSpace(trustedTitle) || !string.IsNullOrWhiteSpace(trustedHighlight))
+        {
+            <h2 class="trusted-title">
+                @trustedTitle
+                @if (!string.IsNullOrWhiteSpace(trustedHighlight))
+                {
+                    <span>@trustedHighlight</span>
+                }
+            </h2>
+        }
+
+        
+        @if (!string.IsNullOrWhiteSpace(trustedText))
+        {
+            <div class="trusted-text rte">
+                @Html.Raw(trustedText)
+            </div>
+        }
+
+        
+        @if (trustedLink != null && !string.IsNullOrWhiteSpace(trustedButtonText))
+        {
+            <a class="btn-primary" href="@trustedLink.Url" target="@trustedLink.Target">
+                @trustedButtonText
+            </a>
+        }
+
+       
+        @if (trustedImg != null)
+        {
+            <div class="trusted-image">
+                <img src="@trustedImg.Url()" alt="@trustedImg.Name" />
+            </div>
+        }
+
+    </div>
+</section>
+
+
+<section class="success">
+    <div class="success-inner">
+
+      
+        @if (!string.IsNullOrWhiteSpace(successLabel))
+        {
+            <p class="success-label">@successLabel</p>
+        }
+
+        
+        @if (!string.IsNullOrWhiteSpace(successTitle))
+        {
+            <h3 class="success-title">
+                @successTitle
+            </h3>
+        }
+
+        <div class="success-stats">
+            <div class="success-stat">
+                <div class="success-number">@successStat1Number</div>
+                <p class="success-text">@successStat1Text</p>
+            </div>
+
+            <div class="success-stat">
+                <div class="success-number">@successStat2Number</div>
+                <p class="success-text">@successStat2Text</p>
+            </div>
+
+            <div class="success-stat">
+                <div class="success-number">@successStat3Number</div>
+                <p class="success-text">@successStat3Text</p>
+            </div>
+        </div>
+
+        @if (successImg != null)
+        {
+            <div class="success-image">
+                <img src="@successImg.Url()" alt="@successImg.Name" />
+            </div>
+        }
+
+    </div>
+</section>
